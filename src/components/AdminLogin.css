@@ -1,0 +1,64 @@
+.login-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-container h2 {
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.login-container input {
+  width: 90%;
+  padding: 8px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 18px;
+}
+
+.login-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.login {
+  display: flex;
+  justify-content: center; /* Center the buttons container */
+  gap: 20px;               /* Space between the buttons */
+  margin-top: 20px;
+}
+
+.login-buttons {
+  display: flex;
+  gap: 20px; /* Space between buttons */
+}
+
+.login-buttons button {
+  padding: 12px 30px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  background: linear-gradient(145deg, #e4ecf5, #f0f5fa);
+  color: #333;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  min-width: 120px; /* Ensures same width for both buttons */
+  text-align: center;
+}
+
+.login-buttons button:hover {
+  background: linear-gradient(145deg, #d0e4f0, #eaf3fb);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
