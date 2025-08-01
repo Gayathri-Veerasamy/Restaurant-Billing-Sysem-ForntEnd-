@@ -1,6 +1,6 @@
  🍽️ Restaurant Billing System - Frontend
 
-Live Site: (https://restaurant-billing-92e85.web.app/)
+Live Site: ([https://restaurant-billing-92e85.web.app/](https://restaurant-billing-92e85.firebaseapp.com/))
 
 This is the **Frontend** of a Restaurant Billing System built using modern web technologies like **React** and **Vite** with rendered backend @ "https://billing-system-6.onrender.com". It provides an intuitive UI for customers and staff to interact with the restaurant’s menu, place orders, and manage bills effectively.
 
