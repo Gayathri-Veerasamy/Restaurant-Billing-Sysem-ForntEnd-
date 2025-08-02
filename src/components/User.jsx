@@ -44,6 +44,23 @@ const User = () => {
     });
   };
 
+  const handleRemoveFromCart = (item) => {
+    setCartItems((prevCartItems) => {
+      const existingItem = prevCartItems.find(cartItem => cartItem._id === item._id);
+      if (!existingItem) return prevCartItems;
+
+      if (existingItem.count === 1) {
+        // Remove the item from cart
+        return prevCartItems.filter(cartItem => cartItem._id !== item._id);
+      } else {
+        // Decrement count
+        return prevCartItems.map(cartItem =>
+          cartItem._id === item._id ? { ...cartItem, count: cartItem.count - 1 } : cartItem
+        );
+      }
+    });
+  };
+
   const filteredItems = items
     .filter(item => item.quantity > 0)
     .filter(item => item.itemName.toLowerCase().includes(search.toLowerCase()))
@@ -61,7 +78,11 @@ const User = () => {
         />
         <div className="category-filters">
           {['all', 'main course', 'sides', 'juice', 'icecream', 'snacks', 'desserts & bakes'].map((cat) => (
-            <button key={cat} onClick={() => handleCategoryChange(cat)}>
+            <button
+              key={cat}
+              onClick={() => handleCategoryChange(cat)}
+              className={category === cat ? 'active-category' : ''}
+            >
               {cat}
             </button>
           ))}
@@ -70,30 +91,36 @@ const User = () => {
 
       <div className="item-grid">
         {filteredItems.map((item) => (
-          <ItemCard key={item._id} item={item} onAddToCart={handleAddToCart} />
+          <ItemCard
+            key={item._id}
+            item={item}
+            onAddToCart={handleAddToCart}
+            onRemoveFromCart={handleRemoveFromCart}
+            cartItems={cartItems}
+          />
         ))}
       </div>
 
       <Link to="/cart" state={{ cartItems }}>
-        <button className="cart-button">Cart</button>
+        <button className="cart-button">Cart ({cartItems.reduce((acc, item) => acc + item.count, 0)})</button>
       </Link>
     </div>
   );
 };
 
-const ItemCard = ({ item, onAddToCart }) => {
-  const [count, setCount] = useState(0);
+const ItemCard = ({ item, onAddToCart, onRemoveFromCart, cartItems }) => {
+  const cartItem = cartItems.find(ci => ci._id === item._id);
+  const count = cartItem?.count || 0;
 
   const incrementCount = () => {
     if (count < item.quantity) {
-      setCount(count + 1);
       onAddToCart(item);
     }
   };
 
   const decrementCount = () => {
     if (count > 0) {
-      setCount(count - 1);
+      onRemoveFromCart(item);
     }
   };
 
@@ -107,9 +134,9 @@ const ItemCard = ({ item, onAddToCart }) => {
         </div>
         <p>Available: {item.quantity}</p>
         <div className="counter">
-          <button onClick={decrementCount}>-</button>
+          <button onClick={decrementCount} disabled={count === 0}>-</button>
           <span>{count}</span>
-          <button onClick={incrementCount}>+</button>
+          <button onClick={incrementCount} disabled={count >= item.quantity}>+</button>
         </div>
       </div>
     </div>
